@@ -1,0 +1,46 @@
+<div class="slds-form-element__control">
+  <div class="slds-combobox_container">
+    <div id="{{ comboBoxId }}"  class="slds-combobox slds-dropdown-trigger slds-dropdown-trigger_click">
+      <div class="slds-combobox__form-element slds-input-has-icon slds-input-has-icon_right" role="none">
+        <input
+          id="{{ inputId }}"
+          class="slds-input"
+          type="text"
+          placeholder="Choose option…"
+          [(ngModel)]="selectedOption.name"
+          (click)="handleComboboxDisplaying()"
+          (keydown)="isCreateNewItems || handleTextInput($event)"
+          (change)="!isCreateNewItems || handleBlur()"
+          required
+        >
+        <span class="slds-icon_container slds-icon-utility-down slds-input__icon slds-input__icon_right">
+          <svg class="slds-icon slds-icon slds-icon_x-small slds-icon-text-default" aria-hidden="true">
+            <use xlink:href="/assets/icons/utility-sprite/svg/symbols.svg#down"></use>
+          </svg>
+        </span>
+      </div>
+      <div class="slds-dropdown slds-dropdown_length-5 slds-dropdown_fluid" role="listbox" tabindex="0" aria-busy="false">
+        <ul class="slds-listbox slds-listbox_vertical" role="presentation">
+
+          <li *ngFor="let item of items" role="presentation" class="slds-listbox__item">
+            <div
+              class="slds-media slds-listbox__option slds-listbox__option_plain slds-media_small"
+              role="option"
+              (click)="handleListSelect(item)"
+            >
+              <span class="slds-media__body">
+                <span
+                  class="slds-truncate"
+                  title="{{ item.name }}"
+                >
+                  {{ item.name }}
+                </span>
+              </span>
+            </div>
+          </li>
+
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>

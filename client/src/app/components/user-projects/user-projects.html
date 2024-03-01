@@ -1,0 +1,26 @@
+<div class="manager-board">
+    <div class="board">
+        <div class="projects-window">
+            <div class="slds-form-element">
+                <label class="slds-form-element__label" for="text-input-id-47">
+                    <abbr class="slds-required" title="required">* </abbr>Search project</label>
+                <div class="slds-form-element__control search_panel">
+                    <input type="text" id="text-input-id-47" placeholder="Enter project name..." required="" class="slds-input" 
+                    [(ngModel)]="projectToSearch"/>
+                    <div class="search-button" (click)="searchProjects()">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                    </div>
+                </div>
+            </div>
+
+            <div class="projects-container">
+                <div class="project_row" *ngFor="let project of projects" (click)="selectProject(project)">
+                    <img class="project_icon"/>
+                    <div class="project_name">{{project.name}}</div>
+                    <div class="project_manager_email">{{project.projectManagerEmail}}</div>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+</div>

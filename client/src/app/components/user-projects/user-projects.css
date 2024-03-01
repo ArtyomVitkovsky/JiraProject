@@ -1,0 +1,104 @@
+.manager-board {
+    display: flex;
+    height: 100%;
+    width: 100%;
+    justify-content: center;
+}
+
+.board {
+    width: 70%;
+    display: flex;
+    overflow: overlay;
+    margin: 1em 1em;
+    padding: 1em 2em;
+    border-radius: 1em;
+    box-shadow: 0 0 10px 0px #b7d1e53b;
+    background-color: #ffffff63;
+    backdrop-filter: blur(0.5rem);
+    justify-content: center;
+}
+
+.projects-window {
+    width: 80%;
+    overflow: hidden;
+}
+
+.projects-container {
+    height: 100%;
+    width: 100%;
+    background-color: white;
+    margin-top: 2em;
+    padding: 0.25em 0em 0em 0em;
+    border-radius: 1em;
+    box-shadow: 0 0 10px 0px #b7d1e53b;
+    overflow: auto;
+}
+
+.projects-container::-webkit-scrollbar {
+    width: 0.5em;
+}
+
+.projects-container::-webkit-scrollbar-track {
+    background-color: #f6f5f5;
+    border-radius: 1em;
+}
+
+.projects-container::-webkit-scrollbar-thumb {
+    background-color: #c9c9c9;
+    border-radius: 0.8em;
+}
+
+.project_row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    column-gap: 2em;
+    padding: 0.5em 2em;
+    margin: 1em;
+    border-radius: 1em;
+    background-color: #ffffff00;
+    box-shadow: 0 0 10px 1px #7fafd53b;
+    backdrop-filter: blur(10rem);
+    transition: all ease-out 0.5s;
+}
+
+.project_row:hover {
+    background-color: #b2dcffd3;
+}
+
+.project_icon {
+    width: 50px;
+    height: 50px;
+}
+
+.project_name {
+    text-transform: uppercase;
+}
+
+.project_manager_email {
+    text-align: right;
+    width: 30%;
+}
+
+.search_panel {
+    display: flex;
+    flex-direction: row;
+    align-items: stretch;
+}
+
+.search-button {
+    background-color: #ffffff;
+    margin-left: 0.5em;
+    width: 10%;
+    border: solid 1.1px #c9c9c9;
+    border-radius: 0.3em;
+    box-shadow: 0 0 10px 0px #b7d1e53b;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: all ease-in 0.05s;
+}
+
+.search-button:hover {
+    background-color: #f1f1f186;
+}

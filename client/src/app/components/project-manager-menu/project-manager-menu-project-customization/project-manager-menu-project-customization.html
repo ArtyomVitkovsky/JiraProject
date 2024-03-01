@@ -1,0 +1,184 @@
+<div class="board_header">
+	<div class="user_info clickable_object" (click)="logOut()">
+			<img class="user_icon" />
+			<div class="user_name">{{currentUser.email}}</div>
+	</div>
+</div>
+
+<div class="manager-board">
+	<div class="columns-configurator">
+		<div class="board board_columns_container">
+			<div id="board-columns" class="board__columns">
+				<div class="column" *ngFor="let column of columns; index as i" [@columnAnimation]
+					(mouseover)="showDeleteButton(column.index)" (mouseleave)="hideDeleteButton(column.index)">
+					<div class="column_header">
+						<div class="slds-form-element">
+							<div class="slds-form-element__control">
+								<input type="text" placeholder='Column {{i+1}}...' class="slds-input" [(ngModel)]="column.name" />
+							</div>
+						</div>
+					</div>
+					<div class="task_card-container">
+						<div class="task_card">
+							<div class="task_card_header">
+								Task Header
+							</div>
+						</div>
+					</div>
+					<div id="trash_block_{{column.index}}" class="trash_block" (click)="removeColumn(column.index)">
+						<i class="fa-solid fa-trash-can trash_icon"></i>
+					</div>
+				</div>
+			</div>
+
+			<div class="plus-button__container dashed-gradient">
+				<div class="plus-button" (click)="addColumn()">
+					<i class="fa-solid fa-plus"></i>
+				</div>
+			</div>
+
+		</div>
+
+		<div class="save_block" (click)="saveProjectConfig()">
+			Save
+		</div>
+	</div>
+
+
+	<div class="board board_project_container">
+
+		<div class="create_project-container" *ngIf="isProjectCreation">
+			<div class="slds-form-element create_project-input">
+				<label class="slds-form-element__label" for="text-input-id-47">
+					<abbr class="slds-required" title="required">* </abbr>Need a new Project ?</label>
+				<div class="slds-form-element__control">
+					<input type="text" id="text-input-id-47" placeholder="Enter new project name..." required=""
+						class="slds-input" [(ngModel)]="newProjectName" />
+				</div>
+			</div>
+			<div class="save_block" (click)="createProject()">
+				Create Project
+			</div>
+		</div>
+
+
+		<div class="slds-form-element projects_selector">
+			<label class="slds-form-element__label task_card_header" for="combobox-id-59"
+				id="combobox-label-id-131">Projects</label>
+			<div class="slds-form-element__control">
+				<div class="slds-combobox_container">
+					<div id="projects-list" class="slds-combobox slds-dropdown-trigger slds-dropdown-trigger_click">
+						<div class="slds-combobox__form-element slds-input-has-icon slds-input-has-icon_right" role="none"
+							(click)="handleProjectsListDisplaying()" (focusout)="handleProjectsComboBoxFocusOut()">
+							<div role="combobox" tabindex="0" class="slds-input_faux slds-combobox__input">
+								<span class="slds-truncate" id="combobox-selected-value">
+									{{ selectedProject ? selectedProject.name : 'Select an Option…' }}
+								</span>
+							</div>
+							<span class="slds-icon_container slds-icon-utility-down slds-input__icon slds-input__icon_right">
+								<svg class="slds-icon slds-icon slds-icon_x-small slds-icon-text-default" aria-hidden="true">
+									<use xlink:href="/assets/icons/utility-sprite/svg/symbols.svg#down"></use>
+								</svg>
+							</span>
+						</div>
+						<div class="slds-dropdown slds-dropdown_length-5 slds-dropdown_fluid" role="listbox" tabindex="0"
+							aria-busy="false">
+							<ul class="slds-listbox slds-listbox_vertical" role="presentation">
+								<li role="presentation" class="slds-listbox__item" (click)="showCreateProjectContainer()">
+									<div id="option724"
+										class="slds-media slds-listbox__option slds-listbox__option_plain slds-media_small" role="option">
+										<span class="slds-media__figure slds-listbox__option-icon"></span>
+										<span class="slds-media__body">
+											<span class="slds-truncate">Create new project...</span>
+										</span>
+									</div>
+								</li>
+								<li role="presentation" class="slds-listbox__item" *ngFor="let project of projects"
+									(click)="selectProject(project)">
+									<div id="option724"
+										class="slds-media slds-listbox__option slds-listbox__option_plain slds-media_small" role="option">
+										<span class="slds-media__figure slds-listbox__option-icon"></span>
+										<span class="slds-media__body">
+											<span class="slds-truncate">{{project.name}}</span>
+										</span>
+									</div>
+								</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="project_settings-container" *ngIf="selectedProject">
+			<div class="slds-form-element employees_selector-container" role="group" aria-labelledby="picklist-group-label">
+				<span id="picklist-group-label"
+					class="slds-form-element__label slds-form-element__legend task_card_header column_header">Select
+					Employees</span>
+				<div class="slds-form-element__control">
+					<div class="slds-dueling-list">
+						<div class="slds-assistive-text" id="drag-live-region" aria-live="assertive"></div>
+						<div class="slds-assistive-text" id="option-drag-label">Press space bar when on an item, to move it within
+							the
+							list. Cmd/Ctrl plus left and right arrow keys, to move items between lists.</div>
+						<div class="slds-dueling-list__column slds-dueling-list__column_responsive">
+							<span class="slds-form-element__label" id="label-107">Available Employees</span>
+							<div class="slds-dueling-list__options">
+								<ul aria-describedby="option-drag-label" aria-labelledby="label-107" aria-multiselectable="true"
+									class="slds-listbox slds-listbox_vertical" role="listbox">
+									<li role="presentation" class="slds-listbox__item"
+										*ngFor="let employeeToSelect of employeesToSelect; index as i" (click)="selectEmployee(i, true)">
+										<div
+											class="slds-listbox__option slds-listbox__option_plain slds-media slds-media_small slds-media_inline"
+											aria-selected="false" draggable="true" role="option" tabindex="0">
+											<span class="slds-media__body">
+												<span class="slds-truncate">{{employeeToSelect.first_name}}
+													{{employeeToSelect.last_name}}</span>
+											</span>
+										</div>
+									</li>
+								</ul>
+							</div>
+						</div>
+						<div class="slds-dueling-list__column">
+							<button class="slds-button slds-button_icon slds-button_icon-container"
+								title="Move Selection to Selected Languages" (click)="addEmployeeToProject()">
+								<svg class="slds-button__icon" aria-hidden="true">
+									<use xlink:href="/assets/icons/utility-sprite/svg/symbols.svg#right"></use>
+								</svg>
+								<span class="slds-assistive-text">Move Selection to Selected Employees</span>
+							</button>
+							<button class="slds-button slds-button_icon slds-button_icon-container"
+								title="Move Selection to Available Languages" (click)="removeEmployeeFromProject()">
+								<svg class="slds-button__icon" aria-hidden="true">
+									<use xlink:href="/assets/icons/utility-sprite/svg/symbols.svg#left"></use>
+								</svg>
+								<span class="slds-assistive-text">Move Selection to Available Employees</span>
+							</button>
+						</div>
+						<div class="slds-dueling-list__column slds-dueling-list__column_responsive">
+							<span class="slds-form-element__label" id="label-108">Selected Employees</span>
+							<div class="slds-dueling-list__options">
+								<ul aria-describedby="option-drag-label" aria-labelledby="label-108" aria-multiselectable="true"
+									class="slds-listbox slds-listbox_vertical" role="listbox">
+									<li role="presentation" class="slds-listbox__item"
+										*ngFor="let employeeOnProject of employeesOnProject; index as i" (click)="selectEmployee(i, false)">
+										<div
+											class="slds-listbox__option slds-listbox__option_plain slds-media slds-media_small slds-media_inline"
+											aria-selected="false" draggable="true" role="option" tabindex="0">
+											<span class="slds-media__body">
+												<span class="slds-truncate">{{employeeOnProject.first_name}}
+													{{employeeOnProject.last_name}}</span>
+											</span>
+										</div>
+									</li>
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+	</div>
+</div>

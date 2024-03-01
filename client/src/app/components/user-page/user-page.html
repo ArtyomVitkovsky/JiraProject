@@ -1,0 +1,78 @@
+<div class="user_page">
+  <div class="user_card">
+    <div class="user_info">
+      <img class="user_icon" />
+      <div class="user_name">{{currentUser.email}}</div>
+    </div>
+    <div class="user_info_block">
+      <div class="user_info_block_name">ID: </div>
+      <div class="user_info_block_value">
+        {{userInfo.id}}
+      </div>
+    </div>
+    <div class="user_info_block">
+      <div class="user_info_block_name">Email: </div>
+      <div class="user_info_block_value">
+        <div class="slds-form-element__control">
+          <input type="text" placeholder='Enter password...' class="slds-input" [(ngModel)]="userInfo.email" />
+        </div>
+      </div>
+    </div>
+    <div class="user_info_block">
+      <div class="user_info_block_name">Password: </div>
+      <div class="user_info_block_value">
+        <div class="slds-form-element__control">
+          <input type="password" placeholder='Enter password...' class="slds-input" [(ngModel)]="userInfo.password" />
+        </div>
+      </div>
+    </div>
+    <div class="user_info_block">
+      <div class="user_info_block_name">First Name: </div>
+      <div class="user_info_block_value">
+        <div class="slds-form-element__control">
+          <input type="text" placeholder='Enter password...' class="slds-input" [(ngModel)]="userInfo.first_name" />
+        </div>
+      </div>
+    </div>
+    <div class="user_info_block">
+      <div class="user_info_block_name">Last Name: </div>
+      <div class="user_info_block_value">
+        <div class="slds-form-element__control">
+          <input type="text" placeholder='Enter password...' class="slds-input" [(ngModel)]="userInfo.last_name" />
+        </div>
+      </div>
+    </div>
+    <div class="user_info_block" *ngFor="let comboBox of userStateComboBox">
+      <div class="user_info_block_name">{{comboBox.label}}: </div>
+      <div class="user_info_block_value">
+        <combobox [items]="comboBox.items" [comboBoxId]="comboBox.comboBoxId" [inputId]="comboBox.inputId"
+          [selectedOption]="comboBox.selectedOption" (onOptionSelect)="handleStateComboboxOptionSelect($event)">
+        </combobox>
+      </div>
+    </div>
+
+    <div class="save-changes-block">
+      <button class="slds-button slds-button_brand" (click)="saveUserInfoChanges()">Save changes</button>
+    </div>
+
+    <div class="request_block" *ngFor="let comboBox of userRoleComboBox">
+      <div class="request_block_name">{{comboBox.label}}: </div>
+      <div>
+        <div class="request_block_values">
+          <combobox [items]="comboBox.items" [comboBoxId]="comboBox.comboBoxId" [inputId]="comboBox.inputId"
+            [selectedOption]="comboBox.selectedOption" (onOptionSelect)="handleRoleComboboxOptionSelect($event)">
+          </combobox>
+          <div class="slds-form-element">
+            <label class="slds-form-element__label" for="textarea-id-01">Request message</label>
+            <div class="slds-form-element__control">
+              <textarea style="resize: none;" rows="5" id="textarea-id-01" placeholder="Enter Request message..."
+                class="slds-textarea" [(ngModel)]="changeRoleRequest.message"></textarea>
+            </div>
+          </div>
+        </div>
+      </div>
+      <button class="slds-button slds-button_brand" (click)="createChangeUserRoleRequest()">Send request</button>
+    </div>
+
+    <button class="slds-button slds-button_destructive" (click)="logOut()">Log out</button>
+  </div>

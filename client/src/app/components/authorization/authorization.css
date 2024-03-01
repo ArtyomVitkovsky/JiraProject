@@ -1,0 +1,55 @@
+.registration-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    flex-direction: column;
+}
+
+.child_container_bg{
+    margin: auto;
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    z-index: -1;
+}
+
+.child_container{
+    border: 1px solid #00000014;
+    padding: 1em;
+    border-radius: 1em;
+    background-color: #ffffff75;
+    display: flex;
+    flex-direction: column;
+    row-gap: 0.5em;
+    width: 300px;
+}
+
+.slds-card-container {
+    display: flex;
+    flex-direction: column;
+    row-gap: 0.75em;
+}
+
+.project_name_header{
+    display: flex;
+    margin: auto;
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    z-index: -2;
+    background-color: white;
+}
+
+.project_name_header_text{
+    color: #0176d382;
+    font-size: 300px;
+    margin: auto;
+}
+
+.to_registration{
+    text-decoration: underline;
+    text-align: center;
+    margin-top: 0.5em;
+    cursor: pointer;
+}

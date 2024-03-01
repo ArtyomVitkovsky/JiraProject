@@ -1,0 +1,21 @@
+@import 'ngx-toastr/toastr';
+@import "~@fortawesome/fontawesome-free/css/all.css";
+
+html, body {
+    height: 100%;
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+}
+
+.slds-button {
+    transition: all ease .3s !important;
+}
+
+.clickable_object{
+    transition: all ease-out 0.5s !important;
+}
+
+.clickable_object:hover {
+    background-color: #7cc3ff4f !important;
+}

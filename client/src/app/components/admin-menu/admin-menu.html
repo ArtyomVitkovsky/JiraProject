@@ -1,0 +1,236 @@
+<div class="board_header">
+    <div class="menu">
+        <button class="slds-button" (click)="setSqlWrapperVisibility(false)">Requests board</button>
+        <button class="slds-button" (click)="setSqlWrapperVisibility(true)">SQL wrapper</button>
+        <button class="slds-button" (click)="setLogsVisibility(true)">View Logs</button>
+        <button class="slds-button" (click)="setBackupsVisibility(true)">View Backups</button>
+    </div>
+
+    <div class="user_info clickable_object" (click)="logOut()">
+        <img class="user_icon" />
+        <div class="user_name">{{currentUser.email}}</div>
+    </div>
+</div>
+
+<div class="admin-board" *ngIf="!showSqlWrapper">
+    <div class="role_requests_panel">
+        <div class="board users_container">
+            <div class="slds-form-element">
+                <label class="slds-form-element__label" for="text-input-id-47">
+                    <abbr class="slds-required" title="required">* </abbr>Search user</label>
+                <div class="slds-form-element__control search_panel">
+                    <input type="text" id="text-input-id-47" placeholder="Enter email..." required="" class="slds-input"
+                        [(ngModel)]="emailToSearch" />
+                    <div class="search-button" (click)="searchUsers()">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                    </div>
+                </div>
+            </div>
+            <div class="userAndRole_card" *ngFor="let userAndRole of usersAndRoles" (click)="selectUser(userAndRole)"
+                [ngClass]="{'userAndRole_card-selected': userAndRole.id == selectedUser.id}">
+                <div class="userAndRole_card_email">
+                    {{userAndRole.email}}
+                </div>
+                <div class="userAndRole_card_role" [ngClass]="{
+                    userRole_employee_color: userAndRole.role_type == 'Employee',
+                    userRole_project_manager_color: userAndRole.role_type == 'Project Manager',
+                    userRole_admin_color: userAndRole.role_type == 'Admin'
+                }">
+                    {{userAndRole.role_type}}
+                </div>
+            </div>
+        </div>
+
+        <div class="board requests_board">
+            <div class="selected_user_settings" *ngIf="selectedUser.email">
+                <div class="userAndRole_card_email">
+                    {{selectedUser.email}}
+                </div>
+                <div class="userAndRole_card_role" [ngClass]="{
+                    userRole_employee_color: selectedUser.role_type == 'Employee',
+                    userRole_project_manager_color: selectedUser.role_type == 'Project Manager',
+                    userRole_admin_color: selectedUser.role_type == 'Admin'
+                }">
+                    {{selectedUser.role_type}}
+                </div>
+            </div>
+
+            <div class="requests_container">
+                <div class="request_message" *ngFor="let request of requests">
+                    <div class="request_message-text">{{request.message}}</div>
+
+                    <div class="request_message_target_role_container">
+                        <div class="request_message_target_role_pointer">
+                            To Role:
+                        </div>
+                        <div class="userAndRole_card_role request_message_target_role" [ngClass]="{
+                            userRole_employee_color: request.role_type == 'Employee',
+                            userRole_project_manager_color: request.role_type == 'Project Manager',
+                            userRole_admin_color: request.role_type == 'Admin'
+                        }">
+                            {{request.role_type}}
+                        </div>
+                    </div>
+
+                    <div class="response_buttons">
+                        <i class="fa-regular fa-circle-check request_message_button request_message_accept"
+                            (click)="approveUserRequest(request)"></i>
+                        <i class="fa-regular fa-circle-xmark request_message_button request_message_deny"
+                            (click)="decelineUserRequest(request)"></i>
+                    </div>
+                </div>
+                <div class="no_requests-message" *ngIf="requests.length == 0">
+                    <i class="fa-solid fa-comment-dots"></i>
+                    No Requests...
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="sql_wrapper_panel" *ngIf="showSqlWrapper">
+    <div class="tables_info_panel" *ngIf="tablesInformation">
+        <div style="position: relative;" *ngFor="let table of objectKeys(tablesInformation)">
+            <button class="table_info slds-button" (click)="selectTable(table)">{{table}}</button>
+            <div class="columns_container" *ngIf="table === currentSelectedTable">
+                <span class="table_name">{{table}}</span>
+                <div *ngFor="let column of tablesInformation[table]">
+                    <span>{{column}}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="slds-form-element">
+        <label class="slds-form-element__label" for="textarea-id-01">SQL query</label>
+        <div class="slds-form-element__control">
+            <textarea style="resize: none;" rows="5" id="textarea-id-01" placeholder="Enter SQL query…"
+                class="slds-textarea" [(ngModel)]="sqlQuery"></textarea>
+        </div>
+    </div>
+    <button class="slds-button slds-button_neutral" (click)="sendSqlQueryRequest()">Execute</button>
+    <div class="table_functional" *ngIf="requestResultColumns.length > 0 && requestResultData.length > 0">
+        <a href="{{ requestResultExportLink }}"><button class="slds-button slds-button_neutral">Export</button></a>
+        <button class="slds-button slds-button_neutral" (click)="print()">Print</button>
+    </div>
+    <div id="print-section" class="request-result">
+        <table class="slds-table slds-table_cell-buffer">
+            <thead>
+                <tr class="slds-line-height_reset">
+                    <th scope="col" class="slds-text-title_caps result-table__header-cell"
+                        *ngFor="let column of requestResultColumns">
+                        {{ column }}
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="slds-hint-parent result-table__body-row" *ngFor="let data of requestResultData">
+                    <td *ngFor="let column of objectKeys(data)" class="result-table__body-cell">
+                        {{ data[column] }}
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<section *ngIf="isLogsVisible" role="dialog" tabindex="-1" aria-modal="true" aria-labelledby="modal-heading-01"
+    class="slds-modal slds-fade-in-open">
+    <div class="slds-modal__container">
+        <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse"
+            (click)="setLogsVisibility(false)">
+            <svg class="slds-button__icon slds-button__icon_large" aria-hidden="true">
+                <use xlink:href="/assets/icons/utility-sprite/svg/symbols.svg#close"></use>
+            </svg>
+            <span class="slds-assistive-text">Cancel and close</span>
+        </button>
+        <div class="slds-modal__header">
+            <h1 id="modal-heading-01" class="slds-modal__title slds-hyphenate">Logs</h1>
+        </div>
+        <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+            <div style="overflow-x: auto;">
+                <table class="slds-table slds-table_cell-buffer slds-table_bordered slds-table_fixed-layout">
+                    <thead>
+                        <tr class="slds-line-height_reset">
+                            <th class="slds-text-title_caps" *ngFor="let column of logsColumnsNames">
+                                <div class="slds-truncate">
+                                    {{ column }}
+                                </div>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let log of dataBaseLogs">
+                            <td>
+                                <div class="slds-truncate" title="{{ log.dml }}"> {{log.dml}} </div>
+                            </td>
+                            <td>
+                                <div class="slds-truncate" title="{{ log.table }}"> {{log.table}} </div>
+                            </td>
+                            <td>
+                                <div class="slds-truncate" title="{{ log.affectedRows[0].valueBefore }}">
+                                    {{log.affectedRows[0].valueBefore}} </div>
+                            </td>
+                            <td>
+                                <div class="slds-truncate" title="{{ log.affectedRows[0].valueAfter }}">
+                                    {{log.affectedRows[0].valueAfter}} </div>
+                            </td>
+                            <td>
+                                <div class="slds-truncate" title="{{ log.time | date: 'yyyy-mm-dd HH:mm' }}"> {{log.time
+                                    | date: 'yyyy-mm-dd HH:mm'}} </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="slds-modal__footer">
+        </div>
+    </div>
+</section>
+
+<section *ngIf="isBackupsVisible" role="dialog" tabindex="-1" aria-modal="true" aria-labelledby="modal-heading-01"
+    class="slds-modal slds-fade-in-open">
+    <div class="slds-modal__container">
+        <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse"
+            (click)="setBackupsVisibility(false)">
+            <svg class="slds-button__icon slds-button__icon_large" aria-hidden="true">
+                <use xlink:href="/assets/icons/utility-sprite/svg/symbols.svg#close"></use>
+            </svg>
+            <span class="slds-assistive-text">Cancel and close</span>
+        </button>
+        <div class="slds-modal__header">
+            <h1 id="modal-heading-01" class="slds-modal__title slds-hyphenate">Backups</h1>
+        </div>
+        <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+            <div>
+                <div class="create_backup-button">
+                    <button class="slds-button slds-button_brand" (click)="createDataBaseBackup()">
+                        Create Backup
+                    </button>
+                </div>
+                <div>
+                    Backups download links:
+                    <div class="back_download_links-container">
+                        <div *ngFor="let backup of dataBaseBackups">
+                            <a href="{{ downloadDataBaseBackupsLink + '?fileName=' + backup}}">
+                                {{ backup }}
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="slds-modal__footer">
+        </div>
+    </div>
+</section>
+
+<div style="opacity: 0.25 !important;" class="slds-backdrop slds-backdrop_open" role="presentation"
+    *ngIf="currentSelectedTable" (click)="selectTable('')"></div>
+
+<div style="opacity: 0.75 !important;" class="slds-backdrop slds-backdrop_open" role="presentation"
+    *ngIf="isLogsVisible"></div>
+
+<div style="opacity: 0.75 !important;" class="slds-backdrop slds-backdrop_open" role="presentation"
+    *ngIf="isBackupsVisible"></div>

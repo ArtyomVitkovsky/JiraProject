@@ -1,0 +1,254 @@
+.board_header {
+    display: flex;
+    column-gap: 1em;
+    width: 100%;
+    background-color: #7cc3ff4f;
+}
+
+.user_info {
+    display: flex;
+    width: 20%;
+    align-items: center;
+    justify-content: space-between;
+    column-gap: 2em;
+    padding: 0.5em 2em;
+    margin: 1em;
+    border-radius: 1em;
+    background-color: #ffffff;
+    box-shadow: 0 0 10px 1px #7fafd53b;
+    backdrop-filter: blur(10rem);
+    transition: all ease-out 0.5s;
+}
+
+.user_icon {
+    width: 50px;
+    height: 50px;
+}
+
+.user_name {
+    text-transform: uppercase;
+}
+
+.project_info {
+    display: flex;
+    width: 80%;
+    align-items: center;
+    justify-content: space-between;
+    column-gap: 2em;
+    padding: 0.5em 2em;
+    margin: 1em;
+    border-radius: 1em;
+    background-color: #ffffff00;
+    box-shadow: 0 0 10px 1px #7fafd53b;
+    backdrop-filter: blur(10rem);
+    transition: all ease-out 0.5s;
+}
+
+.project_icon {
+    width: 50px;
+    height: 50px;
+}
+
+.project_name {
+    text-transform: uppercase;
+}
+
+.project_manager_email {
+    text-align: right;
+    width: 30%;
+}
+
+.manager-board {
+    display: flex;
+    height: 100%;
+}
+
+.board {
+    display: flex;
+    overflow: overlay;
+    margin: 1em 1em;
+    padding: 1em 2em;
+    border-radius: 1em;
+    box-shadow: 0 0 10px 0px #b7d1e53b;
+    background-color: #ffffff63;
+    backdrop-filter: blur(0.5rem);
+}
+
+.board_columns_container {
+    width: 100%;
+}
+
+.board_project_container {
+    width: 35%;
+    flex-direction: column;
+}
+
+.board__columns {
+    display: flex;
+    overflow-x: auto;
+    overflow-y: hidden;
+}
+
+.board__columns::-webkit-scrollbar {
+    height: 0.8em;
+}
+
+.board__columns::-webkit-scrollbar-track {
+    background-color: #f6f5f5;
+    border-radius: 1em;
+}
+
+.board__columns::-webkit-scrollbar-thumb {
+    background-color: #c9c9c9;
+    border-radius: 0.8em;
+}
+
+.column {
+    display: flex;
+    flex-direction: column;
+    row-gap: 0.5em;
+    width: 250px;
+    min-width: 250px;
+    padding: 0.5em 1em;
+    margin: 1em;
+    border-radius: 1em;
+    background-color: #ffffff00;
+    box-shadow: 0 0 10px 1px #7fafd53b;
+    backdrop-filter: blur(10rem);
+}
+
+.column_header {
+    text-transform: uppercase;
+    text-align: center;
+    background-color: #d6d6d636;
+    border-radius: 0.5em;
+    padding: 0.5em;
+}
+
+.task_card-container {
+    flex: 1;
+}
+
+.task_card {
+    width: 100%;
+    height: 200px;
+    background-color: white;
+    box-shadow: 0 0 15px 0px #e4eaef;
+    border-radius: 0.5em;
+    margin-bottom: 1em;
+    padding-left: 1em;
+    padding-right: 1em;
+}
+
+.task_card_header {
+    text-transform: uppercase;
+    text-align: center;
+    font-weight: bold;
+    border-radius: 0.3em;
+    padding-top: 2em;
+    padding-bottom: 2em;
+}
+
+.task_card_performer {
+    text-align: left;
+    border-radius: 0.3em;
+    padding-bottom: 2em;
+}
+
+.task_card_task_type {
+    text-align: left;
+    border-radius: 0.3em;
+    padding-bottom: 2em;
+}
+
+.add_task_block {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 50px;
+    background-color: #86d57f5e;
+    border-radius: 0.5em;
+    margin-top: 1em;
+}
+
+.task_modal{
+    width: 60% !important;
+    max-width: none !important;
+}
+
+.task_container {
+    display: flex;
+    width: 100%;
+}
+
+.task_parameters {
+    display: flex;
+    flex-direction: column;
+    row-gap: 1em;
+    padding-left: 1em;
+    height: 100%;
+    width: 30%;
+    border-left: 3px solid #d6d6d636;
+}
+
+.task_description {
+    height: 600px;
+    width: 60%;
+}
+
+.task_description_header {
+    font-weight: bold;
+    font-size: 20px;
+    margin-bottom: 0.5em;
+}
+
+.task_description_body {
+    min-height: 50%;
+    font-size: 15px;
+    transition: all ease-out 0.25s;
+}
+
+.task_description_body:hover {
+    background-color:#7fafd53b;
+}
+
+.task_parameter_block_name{
+    width: 30%;
+    font-weight: 700;
+}
+
+.task_parameter_block_value{
+    width: 70%;
+}
+
+.task_parameter_block{
+    height: 40px;
+    display: flex;
+    align-items: center;
+}
+
+.task_progress_bar-container {
+    flex-direction: column;
+    align-items: flex-start !important;
+}
+
+.task_progress_bar {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    height: 20%;
+    border-radius: 1em;
+    background-color: #cccccc;
+}
+
+.task_progress_bar_body {
+    height: 100%;
+    background-color: #04a0fafa;
+    border-radius: 1em;
+}
+
+.task_progress_bar_body_overtime {
+    height: 100%;
+    background-color: #FFAB00;
+    border-radius: 1em;
+}

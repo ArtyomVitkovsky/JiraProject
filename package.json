@@ -1,0 +1,28 @@
+{
+  "name": "jiraproject",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon server.js",
+    "db": "nodemon db.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@rodrigogs/mysql-events": "^0.6.0",
+    "body-parser": "^1.20.2",
+    "cron": "^3.1.6",
+    "express": "*",
+    "mysql2": "*",
+    "mysqldump": "^3.2.0",
+    "nodemon": "*",
+    "sequelize": "*",
+    "write-excel-file": "^1.4.29"
+  },
+  "devDependencies": {
+    "sequelize-cli": "^6.6.1"
+  }
+}

@@ -1,0 +1,35 @@
+<div [@project_name_text_blur]="project_name_text_blur" id="project_name_header" class="project_name_header">
+    <h1 class="slds-text-heading_large slds-text-align_center project_name_header_text">
+        BSUIRA
+    </h1>
+</div>
+
+<div [@project_name_text_overlay_opacity]="project_name_text_overlay_opacity" class="child_container_bg"></div>
+
+<div class="registration-container">
+    <div class="child_container">
+        <h1 class="slds-text-heading_large slds-text-align_center">
+            Authorization
+        </h1>
+        <div class="slds-form-element">
+            <label class="slds-form-element__label" for="text-input-email">
+                <abbr class="slds-required" title="required">* </abbr>Email</label>
+            <div class="slds-form-element__control">
+                <input id="text-input-email" type="email" placeholder="Enter your Email..." required=""
+                    class="slds-input" [(ngModel)]="email" />
+            </div>
+        </div>
+        <div class="slds-form-element">
+            <label class="slds-form-element__label" for="text-input-password">
+                <abbr class="slds-required" title="required">* </abbr>Password</label>
+            <div class="slds-form-element__control">
+                <input id="text-input-password" type="password" placeholder="Enter your password..." required=""
+                    class="slds-input" [(ngModel)]="password" />
+            </div>
+        </div>
+        <button class="slds-button slds-button_brand slds-m-top_medium" (click)="authorize()">Log In!</button>
+    </div>
+    <div class="to_registration" (click)="toRegistration()">
+        registration
+    </div>
+</div>

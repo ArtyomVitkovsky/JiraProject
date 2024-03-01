@@ -1,0 +1,319 @@
+.admin-board {
+  display: flex;
+  height: 100%;
+  justify-content: center;
+}
+
+.board_header {
+  display: flex;
+  column-gap: 1em;
+  width: 100%;
+  justify-content: space-between;
+  background-color: #7cc3ff4f;
+}
+
+.menu {
+  display: flex;
+  column-gap: 2em;
+  height: 100%;
+  margin: 1.25em 0 0 2em;
+  font-size: 1.5em;
+}
+
+.user_info {
+  display: flex;
+  width: 20%;
+  align-items: center;
+  justify-content: space-between;
+  column-gap: 2em;
+  padding: 0.5em 2em;
+  margin: 1em;
+  border-radius: 1em;
+  background-color: #ffffff;
+  box-shadow: 0 0 10px #00000015;
+  backdrop-filter: blur(10rem);
+  transition: all ease-out 0.5s;
+}
+
+.user_icon {
+  width: 50px;
+  height: 50px;
+}
+
+.user_name {
+  text-transform: uppercase;
+}
+
+.role_requests_panel {
+  width: 80%;
+  height: 100%;
+  display: flex;
+  flex-direction: row;
+}
+
+.board {
+  display: flex;
+  flex-direction: column;
+  margin: 1em 1em;
+  padding: 1em 2em;
+  border-radius: 1em;
+  box-shadow: 0 0 10px 0px #b7d1e53b;
+  background-color: #ffffff63;
+  backdrop-filter: blur(0.5rem);
+}
+
+.search_panel {
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+}
+
+.search-button {
+  background-color: #ffffff;
+  margin-left: 0.5em;
+  width: 10%;
+  border: solid 1.1px #c9c9c9;
+  border-radius: 0.3em;
+  box-shadow: 0 0 10px 0px #b7d1e53b;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: all ease-in 0.05s;
+}
+
+.search-button:hover {
+  background-color: #f1f1f186;
+}
+
+.users_container {
+  width: 30%;
+}
+
+.requests_board {
+  width: 70%;
+}
+
+.requests_container {
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  border-radius: 1em;
+  padding: 1em;
+}
+
+.request_message {
+  display: flex;
+  height: 75px;
+  border-radius: 0.5em;
+  background-color: #ffffff;
+  box-shadow: 0 0 15px 0px #e4eaef;
+  column-gap: 1em;
+  padding: 1em;
+}
+
+.request_message-text {
+  background: -webkit-linear-gradient(#000000 0%, rgba(255, 255, 255, 0) 90%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  flex: 1;
+}
+
+.request_message_target_role_container {
+  width: 200px;
+  display: flex;
+}
+
+.request_message_target_role_pointer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 30%;
+  background-color: #edf4ff;
+}
+
+.request_message_target_role {
+  flex: 1;
+}
+
+.response_buttons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  column-gap: 0.3em;
+}
+
+.request_message_button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  font-size: 1.75em;
+}
+
+.request_message_accept {
+  color: green;
+}
+
+.request_message_deny {
+  color: red;
+}
+
+.selected_user_settings {
+  display: flex;
+  /* background-color: #edf4ff; */
+  background-color: #ffffff;
+  border-radius: 0.3em;
+  height: 5%;
+  margin-bottom: 3em;
+}
+
+.no_requests-message {
+  align-self: center;
+  font-size: 3em;
+  color: #9dd2ff;
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  column-gap: 0.4em;
+}
+
+.userAndRole_card {
+  display: flex;
+  width: 100%;
+  height: 60px;
+  margin-top: 0.75em;
+  margin-bottom: 0.75em;
+  background-color: white;
+  box-shadow: 0 0 15px 0px #e4eaef;
+  border-radius: 0.5em;
+  transition: all ease-in 0.25s;
+}
+
+.userAndRole_card-selected {
+  transform: translateX(+50px)
+}
+
+.userAndRole_card_email {
+  word-wrap: break-word;
+  word-break: break-all;
+  text-wrap: wrap;
+  text-align: center;
+  border-radius: 0.3em 0em 0em 0.3em;
+  padding: 0.5em 3em;
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.userAndRole_card_role {
+  text-transform: uppercase;
+  text-align: center;
+  font-weight: bold;
+  font-size: 10px;
+  border-radius: 0em 0.3em 0.3em 0em;
+  padding: 0.5em;
+  width: 30%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.userRole_employee_color {
+  background-color: #acc7ff;
+  border: 2px solid #7fa9ff;
+}
+
+.userRole_project_manager_color {
+  background-color: #f6af92;
+  border: 2px solid #f8976c;
+}
+
+.userRole_admin_color {
+  background-color: #c4dbb4;
+  border: 2px solid #a7ca81;
+}
+
+.sql_wrapper_panel {
+  margin: 2em;
+}
+
+.tables_info_panel {
+  display: flex;
+  flex-wrap: wrap;
+  column-gap: 1.5em;
+  row-gap: 1.5em;
+  justify-content: center;
+  align-items: center;
+}
+
+.table_info {
+  background-color: #cae4ff;
+  padding: 0.5em 1em;
+  border-radius: 0.5em;
+}
+
+.columns_container {
+  display: flex;
+  flex-direction: column;
+  row-gap: 0.5em;
+  position: absolute;
+  z-index: 9999;
+  border-radius: 1.5em;
+  margin: 0.3em 0;
+  background-color: #ffffff;
+  border-color: #f8faff;
+  padding: 1em;
+  margin: .5em 0;
+}
+
+.table_name {
+  text-align: center;
+  padding: 0.5em 1em;
+  background-color: #cae4ff;
+  border-radius: 0.75em;
+}
+
+.request-result {
+  border-radius: 1em;
+  margin-top: 1em;
+  overflow-x: auto;
+  border-radius: 1em;
+  padding-bottom: 1em;
+}
+
+.logsModal {
+  height: 80%;
+  width: 70%;
+  background-color: white;
+}
+
+.backupsModal {
+  height: 80%;
+  width: 70%;
+  background-color: white;
+}
+
+.table_functional {
+  padding: 2em 0em 1em 0em;
+}
+
+.slds-modal__container {
+  width: 70% !important;
+  max-width: none !important;
+}
+
+.create_backup-button {
+  display: flex;
+  justify-content: end;
+}
+
+.back_download_links-container {
+  overflow-y: auto;
+  height: 550px;
+  margin-top: 1em;
+}

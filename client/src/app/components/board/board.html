@@ -1,0 +1,139 @@
+<div class="board_header">
+    <div class="project_info clickable_object">
+        <img class="project_icon" />
+        <div class="project_name">{{selectedProject.name}}</div>
+        <div class="project_manager_email">{{selectedProject.projectManagerEmail}}</div>
+    </div>
+    <div class="user_info clickable_object" (click)="openUserPage()">
+        <img class="user_icon" />
+        <div class="user_name">{{currentUser.email}}</div>
+    </div>
+</div>
+
+<div class="manager-board">
+    <div class="board board_columns_container">
+        <div id="board-columns" class="board__columns">
+            <div class="column" *ngFor="let column of columns" 
+                (dragover)="onDragOver($event)"
+                (drop)="onTaskDrop($event, column.index)">
+                <div class="column_header">
+                    <div class="slds-form-element">
+                        <div class="slds-form-element__control">
+                            {{column.name}}
+                        </div>
+                    </div>
+                </div>
+                <div class="task_card-container">
+                    <ng-container *ngFor="let task of tasksByColumns[column.index]">
+                        <div *ngIf="task" class="task_card clickable_object" (click)="selectTask(task.id)"
+                            (dragstart)="onTaskDragStart(task.id)"
+                            draggable="true">
+                            <div class="task_card_header">
+                                {{ task.task_name }}
+                            </div>
+                            <div class="task_card_performer">
+                                PERFORMER: {{ task.permformer_first_name }} {{ task.permformer_last_name }}
+                            </div>
+                            <div class="task_card_task_type">
+                                TYPE: {{ task.task_type }}
+                            </div>
+                            <div class="task_parameter_block task_progress_bar-container">
+                                PROGRESS:
+                                <div class="task_progress_bar">
+                                    <div class="task_progress_bar_body" [ngStyle]="{'width.%': getProgress(task.id)}">
+                                    </div>
+                                    <div class="task_progress_bar_body_overtime"
+                                        [ngStyle]="{'width.%': getOvertime(task.id)}"></div>
+                                </div>
+                                <div class="logged_time_info">
+                                    {{getLoggedTimeFormatted()}}
+                                </div>
+                            </div>
+                        </div>
+                    </ng-container>
+                    <div class="add_task_block" *ngIf="currentUserRole === 'Project Manager'"
+                        (click)="createTask(column.index)">
+                        <i class="fa-solid fa-plus" style="font-size: 30px; color: #ffffff;"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<section class="slds-modal slds-fade-in-open slds-modal_small" *ngIf="isTaskSelected">
+    <div class="slds-modal__container task_modal">
+        <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse"
+            (click)="closeTaskModal()">
+            <svg class="slds-button__icon slds-button__icon_large" aria-hidden="true">
+                <use xlink:href="/assets/icons/utility-sprite/svg/symbols.svg#close"></use>
+            </svg>
+            <span class="slds-assistive-text">Cancel and close</span>
+        </button>
+        <div class="slds-modal__header">
+            <h1 id="modal-heading-01" class="slds-modal__title slds-hyphenate"
+                *ngIf="currentUserRole != 'Project Manager'">{{selectedTask.task_name}}</h1>
+
+            <div class="slds-form-element__control" *ngIf="currentUserRole == 'Project Manager'">
+                <input type="text" placeholder='Enter task name...' class="slds-input"
+                    [(ngModel)]="selectedTask.task_name" />
+            </div>
+        </div>
+        <div class="slds-modal__content slds-p-around_medium task_container" id="modal-content-id-1">
+            <div class="task_description">
+                <div class="task_description_header">Description</div>
+
+                <div class="slds-form-element">
+                    <label class="slds-form-element__label" for="textarea-id-01">Description</label>
+                    <div class="slds-form-element__control">
+                        <textarea style="resize: none;" rows="20" id="textarea-id-01"
+                            placeholder="Enter description text…" class="slds-textarea"
+                            [(ngModel)]="selectedTask.task_description"></textarea>
+                    </div>
+                </div>
+
+            </div>
+            <div class="task_parameters">
+                <div class="task_parameter_block">
+                    <div class="task_parameter_block_name">Author</div>
+                    <div class="task_parameter_block_value">{{selectedTask.pm_email}}</div>
+                </div>
+                <div class="task_parameter_block" *ngFor="let comboBox of comboBoxes">
+                    <div class="task_parameter_block_name">{{comboBox.label}}</div>
+                    <combobox [items]="comboBox.items" [comboBoxId]="comboBox.comboBoxId" [inputId]="comboBox.inputId"
+                        [selectedOption]="comboBox.selectedOption" (onOptionSelect)="handleOptionSelect($event)">
+                    </combobox>
+                </div>
+                <div class="task_parameter_block">
+                    <div class="task_parameter_block_name">Estimate: </div>
+                    <div class="slds-form-element__control">
+                        <input type="text" placeholder='Estimate...' class="slds-input"
+                            [(ngModel)]="selectedTask.estimated_hours" />
+                    </div>
+                </div>
+                <div class="task_parameter_block">
+                    <div class="task_parameter_block_name">Logged hours: </div>
+                    <div class="slds-form-element__control">
+                        <input type="text" placeholder='Log hours...' class="slds-input"
+                            [(ngModel)]="selectedTask.logged_hours" />
+                    </div>
+                </div>
+                <div class="task_parameter_block task_progress_bar-container">
+                    <div class="task_parameter_block_name">PROGRESS: </div>
+                    <div class="task_progress_bar">
+                        <div class="task_progress_bar_body" [ngStyle]="{'width.%': getProgress(selectedTask.id)}"></div>
+                        <div class="task_progress_bar_body_overtime"
+                            [ngStyle]="{'width.%': getOvertime(selectedTask.id)}"></div>
+                    </div>
+                    <div class="logged_time_info">
+                        {{getLoggedTimeFormatted()}}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="slds-modal__footer">
+            <div class="slds-button" (click)="saveTaskChanges(selectedTask.id)">Save</div>
+        </div>
+    </div>
+</section>
+<div class="slds-backdrop slds-backdrop_open" role="presentation" *ngIf="isTaskSelected"></div>
